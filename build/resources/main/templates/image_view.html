@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Image</title>
+</head>
+<body>
+<h2>View Image</h2>
+
+<div>
+    <img th:src="@{'/files/view/' + ${imageName}}" alt="Image" style="max-width:600px;">
+</div>
+
+<br>
+<a href="/">Back to List</a>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Image</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+<h2>Upload and Modify Image2</h2>
+
+<form id="uploadForm" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput" required>
+    <input type="hidden" name="oldFileName" id="oldFileName">
+    <button type="submit">Upload</button>
+</form>
+
+<h3 id="message" th:text="${message}"></h3>
+
+<h3>Uploaded Images:</h3>
+<div>
+    <div th:if="${#lists.isEmpty(images)}">
+        <p>No images uploaded yet.</p>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>Preview</th>
+            <th>Count</th>
+            <th>File Name</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="fileName, stat : ${images}" th:attr="data-filename=${fileName}">
+            <td><img th:src="@{'/images/' + ${fileName}}" width="100"></td>
+            <td th:text="${stat.count}">1</td>
+            <td th:text="${fileName}"></td>
+            <td>
+                <button type="button" class="editBtn">Modify</button>
+                <button type="button" class="deleteBtn">Delete</button>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>
+<script>
+
+    $(document).ready(function() {
+        // Delete image using jQuery AJAX
+        $('.deleteBtn').click(function() {
+            const row = $(this).closest('tr');
+            const fileName = row.data('filename');
+            console.log(fileName);
+            if (confirm('Are you sure you want to delete ' + fileName + '?')) {
+                $.ajax({
+                    url: '/delete/' + fileName,
+                    type: 'DELETE',
+                    success: function(result) {
+                        if (result.status === 'success') {
+                            row.remove();
+                            $('#message').text(result.message);
+                        } else {
+                            alert('Error deleting file!');
+                        }
+                    },
+                    error: function() {
+                        alert('Error deleting file!');
+                    }
+                });
+            }
+        });
+
+        // Modify file using jQuery
+        $('.editBtn').click(function() {
+            const row = $(this).closest('tr');
+            const fileName = row.data('filename');
+            if (confirm('Do you want to replace ' + fileName + '?')) {
+                $('#oldFileName').val(fileName);
+                $('#fileInput').click();
+            }
+        });
+
+        // Submit form automatically after selecting file
+        $('#fileInput').change(function() {
+            if (this.files.length > 0) {
+                $('#uploadForm').submit();
+            }
+        });
+
+    });
+
+
+
+
+</script>
+</body>
+</html>
