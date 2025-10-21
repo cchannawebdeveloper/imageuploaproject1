@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AJAX with @ModelAttribute</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h2>AJAX with @ModelAttribute Example</h2>
+
+<form id="userForm">
+  <input type="text" name="name" placeholder="Enter name"><br><br>
+  <input type="email" name="email" placeholder="Enter email"><br><br>
+  <input type="text" name="country" placeholder="Enter country"><br><br>
+  <input type="text" name="id" placeholder="Enter id"><br><br>
+  <button type="button" id="saveBtn">Save User</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+  $(document).ready(function() {
+    $("#saveBtn").click(function() {
+      console.log("Save button work");
+      $.ajax({
+        type: "POST",
+        url: "/api/saveProduct",
+        data: $("#userForm").serialize(),
+        success: function(response) {
+          $("#result").text(response.message);
+        },
+        error: function() {
+          $("#result").text("Error saving user!");
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

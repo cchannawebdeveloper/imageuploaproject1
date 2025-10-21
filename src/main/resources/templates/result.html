@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Result</title>
+</head>
+<body>
+<h2 th:text="${message}"></h2>
+
+<p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+<p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+<p><strong>Country:</strong> <span th:text="${user.country}"></span></p>
+
+<a th:href="@{/register}">Back to form</a>
+</body>
+</html>

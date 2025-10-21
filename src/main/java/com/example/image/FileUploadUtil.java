@@ -4,7 +4,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +17,6 @@ public class FileUploadUtil {
     //keep old image
     public static void saveFileV2(
             String uploadDir
-            , String oldFileName
             , MultipartFile file
     ) throws IOException {
 

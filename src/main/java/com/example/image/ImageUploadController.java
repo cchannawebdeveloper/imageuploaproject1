@@ -68,8 +68,10 @@ public class ImageUploadController {
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam(value = "file") MultipartFile file,
-                             @RequestParam(value = "oldFileName", required = false) String oldFileName,
+    public String uploadFile(
+
+            @RequestParam(value = "file") MultipartFile file,
+            @RequestParam(value = "oldFileName", required = false) String oldFileName,
                              RedirectAttributes rd)
 
     {
@@ -80,7 +82,7 @@ public class ImageUploadController {
 
         try {
 
-            FileUploadUtil.saveFileV2(UPLOAD_DIR, oldFileName, file);
+            FileUploadUtil.saveFileV2(UPLOAD_DIR, file);
             rd.addFlashAttribute("message", "File uploaded/modified successfully!");
 
         }
@@ -120,9 +122,15 @@ public class ImageUploadController {
     // ✅ Show image view page
     @GetMapping("/files/show/{filename:.+}")
     public String showImage(@PathVariable String filename, Model model) {
+
+
         model.addAttribute("imageName", filename);
         return "image_view";
+
+
     }
+
+
 
    /* @PostMapping("/upload3")
     public String uploadFileBackup(@RequestParam(value = "file") MultipartFile file,

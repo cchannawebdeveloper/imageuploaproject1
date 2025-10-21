@@ -40,7 +40,6 @@
 <h2>Upload Image, Video, or PDF</h2>
 
     <form id="uploadForm" th:action="@{/upload}" method="post" enctype="multipart/form-data">
-
         <input type="file" name="file" id="fileInput"  required>
         <input type="hidden" name="oldFileName" id="oldFileName">
         <button type="submit">Upload</button>
@@ -91,22 +90,6 @@
 
 
     </div>
-
-<h3>PDFs</h3>
-<table>
-    <tr><th>Preview</th><th>Filename</th><th>Action</th></tr>
-    <tr th:each="fileName : ${pdfs}">
-        <td>
-            <iframe th:src="@{'/pdfs/' + ${fileName}}" width="150" height="100"></iframe>
-        </td>
-        <td th:text="${fileName}"></td>
-        <td>
-            <button type="button" th:attr="data-type='pdfs', data-name=${fileName}"  class="deleteBtn">Delete</button>
-        </td>
-    </tr>
-</table>
-
-
     <script>
 
         $(document).ready(function() {
